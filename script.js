@@ -1,7 +1,14 @@
 // =======================
 // Goal Counter Animation
 // =======================
+const SUPABASE_URL = "https://dclavargmatiokjlzdbz.supabase.co/rest/v1/";
 
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjbGF2YXJnbWF0aW9ramx6ZGJ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyMDk2MzAsImV4cCI6MjA5OTc4NTYzMH0.n6zO-iEw4qgG3oIJoNft-ChcH9tnLDzsq_45paIahTM";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 let target = 100000;
 let current = 0;
 
