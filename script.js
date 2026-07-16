@@ -1,7 +1,7 @@
 // =======================
 // Goal Counter Animation
 // =======================
-const SUPABASE_URL = "https://dclavargmatiokjlzdbz.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://dclavargmatiokjlzdbz.supabase.co";
 
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjbGF2YXJnbWF0aW9ramx6ZGJ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyMDk2MzAsImV4cCI6MjA5OTc4NTYzMH0.n6zO-iEw4qgG3oIJoNft-ChcH9tnLDzsq_45paIahTM";
 
@@ -268,41 +268,41 @@ changeLanguage(savedLanguage);
 // مرحله بعد با Firebase وصل می‌کنیم.
 
 
-function sendComment(){
+async function sendComment() {
 
+const name = document.getElementById("name").value.trim();
+const email = document.getElementById("email").value.trim();
+const message = document.getElementById("message").value.trim();
 
-let name =
-document.getElementById("name").value;
-
-
-let email =
-document.getElementById("email").value;
-
-
-let message =
-document.getElementById("message").value;
-
-
-
-if(
-name=="" ||
-email=="" ||
-message==""
-
-){
-
-alert("Please fill all fields");
-
-return;
-
+if (!name || !email || !message) {
+    alert("Please fill all fields.");
+    return;
 }
 
+const { error } = await supabaseClient
+    .from("comments")
+    .insert([
+        {
+            name: name,
+            email: email,
+            message: message,
+            approved: false
+        }
+    ]);
 
+if (error) {
+    console.error(error);
+    alert(error.message);
+    return;
+}
 
+alert("Your comment has been submitted and is waiting for approval ❤️");
 
-alert(
-"Your message was sent and waiting for approval ❤️"
-);
+document.getElementById("name").value = "";
+document.getElementById("email").value = "";
+document.getElementById("message").value = "";
+
+}
 
 
 
